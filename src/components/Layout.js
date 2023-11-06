@@ -1,5 +1,5 @@
-import * as React from 'react';
-import { styled, createTheme, ThemeProvider } from '@mui/material/styles';
+import { Suspense, useState } from 'react';
+import { styled } from '@mui/material/styles';
 import CssBaseline from '@mui/material/CssBaseline';
 import MuiDrawer from '@mui/material/Drawer';
 import Box from '@mui/material/Box';
@@ -21,6 +21,8 @@ import { mainListItems, secondaryListItems } from './listItems';
 import Chart from './Chart';
 import Deposits from './Deposits';
 import Orders from './Orders';
+import { Outlet } from 'react-router-dom';
+import { CircularProgress } from '@mui/material';
 
 function Copyright(props) {
   return (
@@ -87,10 +89,10 @@ const Drawer = styled(MuiDrawer, {
 }));
 
 // TODO remove, this demo shouldn't need to reset the theme.
-const defaultTheme = createTheme();
+// const defaultTheme = createTheme();
 
-export default function Dashboard() {
-  const [open, setOpen] = React.useState(true);
+export default function Layout() {
+  const [open, setOpen] = useState(true);
   const toggleDrawer = () => {
     setOpen(!open);
   };
@@ -123,7 +125,7 @@ export default function Dashboard() {
             noWrap
             sx={{ flexGrow: 1 }}
           >
-            Dashboard
+            {open ? 'Dashboard' : 'D'}
           </Typography>
           <IconButton color="inherit">
             <Badge badgeContent={4} color="secondary">
@@ -162,47 +164,52 @@ export default function Dashboard() {
           flexGrow: 1,
           height: '100vh',
           overflow: 'auto',
+          paddingTop: '64px',
         }}
       >
-        <Toolbar />
-        <Container maxWidth="lg" sx={{ mt: 4, mb: 4 }}>
-          <Grid container spacing={3}>
-            {/* Chart */}
-            <Grid item xs={12} md={8} lg={9}>
-              <Paper
-                sx={{
-                  p: 2,
-                  display: 'flex',
-                  flexDirection: 'column',
-                  height: 240,
-                }}
-              >
-                <Chart />
-              </Paper>
-            </Grid>
-            {/* Recent Deposits */}
-            <Grid item xs={12} md={4} lg={3}>
-              <Paper
-                sx={{
-                  p: 2,
-                  display: 'flex',
-                  flexDirection: 'column',
-                  height: 240,
-                }}
-              >
-                <Deposits />
-              </Paper>
-            </Grid>
-            {/* Recent Orders */}
-            <Grid item xs={12}>
-              <Paper sx={{ p: 2, display: 'flex', flexDirection: 'column' }}>
-                <Orders />
-              </Paper>
-            </Grid>
-          </Grid>
-          <Copyright sx={{ pt: 4 }} />
-        </Container>
+        <Suspense fallback={<CircularProgress size={60} />}>
+          <Outlet />
+        </Suspense>
       </Box>
     </Box>
   );
 }
+
+//    <Toolbar />
+//    <Container maxWidth="lg" sx={{ mt: 4, mb: 4 }}>
+//      <Grid container spacing={3}>
+//        {/* Chart */}
+//        <Grid item xs={12} md={8} lg={9}>
+//          <Paper
+//            sx={{
+//              p: 2,
+//              display: 'flex',
+//              flexDirection: 'column',
+//              height: 240,
+//            }}
+//          >
+//            <Chart />
+//          </Paper>
+//        </Grid>
+//        {/* Recent Deposits */}
+//        <Grid item xs={12} md={4} lg={3}>
+//          <Paper
+//            sx={{
+//              p: 2,
+//              display: 'flex',
+//              flexDirection: 'column',
+//              height: 240,
+//            }}
+//          >
+//            <Deposits />
+//          </Paper>
+//        </Grid>
+//        {/* Recent Orders */}
+//        <Grid item xs={12}>
+//          <Paper sx={{ p: 2, display: 'flex', flexDirection: 'column' }}>
+//            <Orders />
+//          </Paper>
+//        </Grid>
+//      </Grid>
+//      <Copyright sx={{ pt: 4 }} />
+//    </Container>
