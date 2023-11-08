@@ -14,6 +14,7 @@ import Container from '@mui/material/Container';
 import { useDispatch } from 'react-redux';
 import { Notify } from 'notiflix';
 import { logIn } from '../redux/auth/operations';
+import { NavLink } from 'react-router-dom';
 
 function Copyright(props) {
   return (
@@ -26,7 +27,7 @@ function Copyright(props) {
       {'Copyright © '}
       <Link color="inherit" href="#">
         Your Website
-      </Link>{' '}
+      </Link>
       {new Date().getFullYear()}
       {'.'}
     </Typography>
@@ -111,9 +112,9 @@ export default function SignIn() {
               </Link> */}
             </Grid>
             <Grid item>
-              <Link href="#" variant="body2">
-                {"Don't have an account? Sign Up"}
-              </Link>
+              <NavLink to="/signup">
+                <Link variant="body2">{"Don't have an account? Sign Up"}</Link>{' '}
+              </NavLink>
             </Grid>
           </Grid>
         </Box>

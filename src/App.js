@@ -16,6 +16,7 @@ import { PrivateRoute } from './routes/PrivateRout';
 import { Dashboard } from '@mui/icons-material';
 import Deposits from './components/Deposits';
 import Chart from './components/Chart';
+import SignUp from './components/Signup';
 
 function App() {
   const dispatch = useDispatch();
@@ -43,6 +44,10 @@ function App() {
       <Route
         path="/signin"
         element={<RestrictedRoute redirectTo="/" component={<SignIn />} />}
+      />
+      <Route
+        path="/signup"
+        element={<RestrictedRoute redirectTo="/" component={<SignUp />} />}
       />
       <Route
         path="/"
