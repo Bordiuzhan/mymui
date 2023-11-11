@@ -1,7 +1,7 @@
 import axios from 'axios';
 import { createAsyncThunk } from '@reduxjs/toolkit';
 
-axios.defaults.baseURL = 'https://tugestor.onrender.com';
+axios.defaults.baseURL = 'http://localhost:3002';
 //'https://tugestor.onrender.com'
 // 'http://localhost:3002 '
 const setAuthHeader = (token) => {
@@ -15,9 +15,11 @@ export const register = createAsyncThunk(
   'auth/register',
   async (credentials, thunkAPI) => {
     try {
-      console.log('register');
+      console.log(credentials);
       const response = await axios.post('/api/users/register', credentials);
+      console.log(response);
       setAuthHeader(response.data.token);
+      console.log('Registreted');
       return response.data;
     } catch (error) {
       return thunkAPI.rejectWithValue(error.message);

@@ -13,6 +13,9 @@ import Typography from '@mui/material/Typography';
 import Container from '@mui/material/Container';
 import { createTheme, ThemeProvider } from '@mui/material/styles';
 import { NavLink } from 'react-router-dom';
+import { Notify } from 'notiflix';
+import { useDispatch } from 'react-redux';
+import { register } from '../redux/auth/operations';
 
 function Copyright(props) {
   return (
@@ -35,13 +38,27 @@ function Copyright(props) {
 // TODO remove, this demo shouldn't need to reset the theme.
 
 export default function SignUp() {
-  const handleSubmit = (event) => {
+  const dispatch = useDispatch();
+
+  const handleSubmit = async (event) => {
     event.preventDefault();
     const data = new FormData(event.currentTarget);
     console.log({
       email: data.get('email'),
       password: data.get('password'),
+      firstName: data.get('firstName'),
+      lastName: data.get('lastName'),
     });
+    try {
+      await dispatch(
+        register({
+          email: data.get('email'),
+          password: data.get('password'),
+        })
+      );
+    } catch (error) {
+      Notify.failure('Something went wrong!!!');
+    }
   };
 
   return (

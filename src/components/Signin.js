@@ -113,7 +113,9 @@ export default function SignIn() {
             </Grid>
             <Grid item>
               <NavLink to="/signup">
-                <Link variant="body2">{"Don't have an account? Sign Up"}</Link>{' '}
+                <Link href="#" variant="body2">
+                  {"Don't have an account? Sign Up"}
+                </Link>{' '}
               </NavLink>
             </Grid>
           </Grid>
